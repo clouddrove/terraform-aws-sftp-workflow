@@ -78,7 +78,7 @@ This module has a few dependencies:
 Here is an example of how you can use this module in your inventory structure:
 ```hcl
     module "workflow1" {
-      
+
     source = "../"
     name        = "sftp-test-workflow"
     environment = "test"
@@ -108,20 +108,20 @@ Here is an example of how you can use this module in your inventory structure:
     copy_step_name            = "example"
     copy_overwrite_existing   = "FALSE"
     copy_step_source_location = "$${original.file}"
-    copy_bucket_name          = "test-clouddrove-sftp-bucket"
+    copy_bucket_name          = "test-bucket"
     copy_bucket_file_key      = "destination_file.txt"
 
     # decrypt step  
     enable_decrypt_step          = false
     decrypt_step_name            = "decrypt-step-1"
-    decrypt_bucket_name          = "test-clouddrove-sftp-bucket"
+    decrypt_bucket_name          = "test-bucket"
     decrypt_bucket_file_key      = "decrypted/file"
     decrypt_overwrite_existing   = "FALSE"
     decrypt_step_source_location = "$${original.file}"
 
     s3_bucket_id = module.s3_bucket.id
     user_name    = "test-user"
-    bucket_name  = "test-clouddrove-sftp-bucket"
+    bucket_name  = "test-bucket"
     }
 ```
 
