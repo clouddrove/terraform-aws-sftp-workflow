@@ -1,0 +1,91 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name : Terraform AWS SFTP
+
+# License of this project
+license: "APACHE"
+
+# Canonical GitHub repo
+github_repo: clouddrove/terraform-aws-sftp
+
+# Badges to display
+badges:
+  - name: "Terraform"
+    image: "https://img.shields.io/badge/Terraform-v1.1.7-green"
+    url: "https://www.terraform.io"
+  - name: "Licence"
+    image: "https://img.shields.io/badge/License-APACHE-blue.svg"
+    url: "LICENSE.md"
+  - name: "tfsec"
+    image: "https://github.com/clouddrove/terraform-aws-sftp/actions/workflows/tfsec.yml/badge.svg"
+    url: "https://github.com/clouddrove/terraform-aws-sftp/actions/workflows/tfsec.yml"
+  - name: "static-checks"
+    image: "https://github.com/clouddrove/terraform-aws-sftp/actions/workflows/terraform.yml/badge.svg"
+    url: "https://github.com/clouddrove/terraform-aws-sftp/actions/workflows/terraform.yml"
+
+
+#  description of this project
+description: |-
+  This terraform module is used to create sftp on AWS for S3.
+
+# extra content
+include:
+  - "terraform.md"
+
+# How to use this project
+usage : |-
+  ### Simple Example
+  Here is an example of how you can use this module in your inventory structure:
+  ```hcl
+      module "workflow1" {
+        
+        source = "../"
+        name        = "sftp-test-workflow"
+        environment = "test"
+        label_order = ["environment", "name"]
+
+        # workflow name
+        workflow_description = "Workflow-test1"
+
+        # delete step
+        enable_delete_step = true
+        delete_step_name   = "delete-step-1"
+
+        # tag step
+        enable_tag_step          = false
+        tag_step_name            = "tag-step-1"
+        tag_key                  = "tag-key-1"
+        tag_value                = "tag-value-1"
+        tag_step_source_location = "$${original.file}"
+
+        # custom step  
+        enable_custom_step          = false
+        custom_step_source_location = "$${original.file}"
+        timeout_seconds             = 60
+
+        # copy step
+        enable_copy_step          = true
+        copy_step_name            = "example"
+        copy_overwrite_existing   = "FALSE"
+        copy_step_source_location = "$${original.file}"
+        copy_bucket_name          = "test-clouddrove-sftp-bucket"
+        copy_bucket_file_key      = "destination_file.txt"
+
+        # decrypt step  
+        enable_decrypt_step          = false
+        decrypt_step_name            = "decrypt-step-1"
+        decrypt_bucket_name          = "test-clouddrove-sftp-bucket"
+        decrypt_bucket_file_key      = "decrypted/file"
+        decrypt_overwrite_existing   = "FALSE"
+        decrypt_step_source_location = "$${original.file}"
+
+        s3_bucket_id = module.s3_bucket.id
+        user_name    = "test-user"
+        bucket_name  = "test-clouddrove-sftp-bucket"
+      }
+  ```
