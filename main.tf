@@ -23,7 +23,7 @@ module "labels" {
 # Description : Provides a AWS Transfer Workflow resource.
 
 resource "aws_transfer_workflow" "example" {
-  count = var.enable_workflow ? 1 : 0  
+  count       = var.enable_workflow ? 1 : 0
   description = var.workflow_description
   dynamic "steps" {
     for_each = var.enable_delete_step ? [1] : []
@@ -58,7 +58,7 @@ resource "aws_transfer_workflow" "example" {
         name                 = "example"
         source_file_location = var.custom_step_source_location
         # target               = aws_lambda_function.example.arn
-        timeout_seconds      = var.timeout_seconds
+        timeout_seconds = var.timeout_seconds
       }
       type = "CUSTOM"
     }
@@ -101,5 +101,5 @@ resource "aws_transfer_workflow" "example" {
     }
   }
 
-  tags  = module.labels.tags  
+  tags = module.labels.tags
 }

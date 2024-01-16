@@ -20,7 +20,7 @@ variable "environment" {
 
 variable "label_order" {
   type        = list(any)
-  default     = []
+  default     = ["environment", "name"]
   description = "Label order, e.g. `name`,`application`."
 }
 
@@ -30,25 +30,11 @@ variable "attributes" {
   description = "Additional attributes (e.g. `1`)."
 }
 
-variable "tags" {
-  type        = map(any)
-  default     = {}
-  description = "Additional tags (e.g. map(`BusinessUnit`,`XYZ`)."
-}
-
 variable "managedby" {
   type        = string
   default     = "hello@clouddrove.com"
   description = "ManagedBy, eg 'CloudDrove'."
 }
-
-variable "delimiter" {
-  type        = string
-  default     = "-"
-  description = "Delimiter to be used between `organization`, `environment`, `name` and `attributes`."
-}
-
-
 
 #Module      : SFTP Workflow
 #Description : Terraform sftp workflow module variables.
@@ -71,12 +57,6 @@ variable "tag_step_name" {
   description = "Tage step Name  (e.g. `app` or `cluster`)."
 }
 
-variable "custom_step_name" {
-  type        = string
-  default     = null
-  description = "Custom step Name  (e.g. `app` or `cluster`)."
-}
-
 variable "copy_step_name" {
   type        = string
   default     = null
@@ -90,82 +70,57 @@ variable "decrypt_step_name" {
 }
 
 variable "enable_tag_step" {
-  type    = bool
-  default = true
-  description = "Set to false to prevent the step from creating tag step resources."  
+  type        = bool
+  default     = true
+  description = "Set to false to prevent the step from creating tag step resources."
 }
 
 variable "enable_delete_step" {
-  type    = bool
-  default = true
-  description = "Set to false to prevent the step from creating delete step resources."    
+  type        = bool
+  default     = true
+  description = "Set to false to prevent the step from creating delete step resources."
 }
 
 variable "enable_custom_step" {
-  type    = bool
-  default = false
-  description = "Set to false to prevent the step from creating custom step resources."    
+  type        = bool
+  default     = false
+  description = "Set to false to prevent the step from creating custom step resources."
 }
 
 variable "enable_copy_step" {
-  type    = bool
-  default = true
-  description = "Set to false to prevent the step from creating copy step resources."    
+  type        = bool
+  default     = true
+  description = "Set to false to prevent the step from creating copy step resources."
 }
 
 variable "enable_decrypt_step" {
-  type    = bool
-  default = true
-  description = "Set to false to prevent the step from creating decrypt step resources."    
+  type        = bool
+  default     = true
+  description = "Set to false to prevent the step from creating decrypt step resources."
 }
 
 variable "decrypt_overwrite_existing" {
-  type    = any
-  default = "TRUE"
-  description = "(Optional) A flag that indicates whether or not to overwrite an existing file of the same name. The default is FALSE. Valid values are TRUE and FALSE."  
+  type        = any
+  default     = "TRUE"
+  description = "(Optional) A flag that indicates whether or not to overwrite an existing file of the same name. The default is FALSE. Valid values are TRUE and FALSE."
 }
 
 variable "copy_overwrite_existing" {
-  type    = any
-  default = ""
-  description = "(Optional) A flag that indicates whether or not to overwrite an existing file of the same name. The default is FALSE. Valid values are TRUE and FALSE."  
+  type        = any
+  default     = ""
+  description = "(Optional) A flag that indicates whether or not to overwrite an existing file of the same name. The default is FALSE. Valid values are TRUE and FALSE."
 }
 
 variable "timeout_seconds" {
-  type    = any
-  default = "60"
-  description = "(Optional) Timeout, in seconds, for the step."    
-}
-
-variable "user_name" {
-  type        = string
-  description = "User name for SFTP server."
-  sensitive   = true
-}
-
-variable "s3_bucket_id" {
-  type        = string
-  description = "The landing directory (folder) for a user when they log in to the server using their SFTP client."
-  sensitive   = true
-}
-
-variable "bucket_name" {
-  type        = string
-  description = "Name of the S3 bucket used for the transfer workflow"
-  sensitive   = false
+  type        = any
+  default     = "60"
+  description = "(Optional) Timeout, in seconds, for the step."
 }
 
 variable "workflow_description" {
   type        = string
   default     = "test-workflow"
   description = "(Optional) A textual description for the workflow."
-}
-
-
-variable "delete_step_source_location" {
-  type        = any
-  default     = "$${original.file}"
-  description = ""
 }
 
 variable "copy_step_source_location" {
@@ -204,12 +159,6 @@ variable "tag_value" {
   description = "(Required) The name assigned to the tag that you create."
 }
 
-variable "decrypt_bucket_name" {
-  type        = string
-  default     = ""
-  description = "(Optional) The name assigned to the file when it was created in S3. You use the object key to retrieve the object."
-}
-
 variable "copy_bucket_name" {
   type        = string
   default     = ""
@@ -223,6 +172,12 @@ variable "decrypt_bucket_file_key" {
 }
 
 variable "copy_bucket_file_key" {
+  type        = string
+  default     = ""
+  description = "(Optional) The name assigned to the file when it was created in S3. You use the object key to retrieve the object."
+}
+
+variable "decrypt_bucket_name" {
   type        = string
   default     = ""
   description = "(Optional) The name assigned to the file when it was created in S3. You use the object key to retrieve the object."

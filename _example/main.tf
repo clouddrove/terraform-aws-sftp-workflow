@@ -1,26 +1,29 @@
 provider "aws" {
-  region = "us-east-1"
+  region = local.region
+}
+
+locals {
+  region      = "us-east-1"
+  name        = "sftp-workflow"
+  environment = "test"
 }
 
 module "s3_bucket" {
   source  = "clouddrove/s3/aws"
-  version = "1.3.0"
+  version = "2.0.0"
 
-  name        = "clouddrove-sftp-bucket-75"
-  environment = "test"
-  label_order = ["environment", "name"]
-
+  name          = "${local.name}-bucket"
+  environment   = local.environment
   versioning    = true
   acl           = "private"
   force_destroy = true
 }
 
-module "workflow1" {
+module "workflow" {
   source = "../"
 
-  name        = "sftp-test-workflow"
-  environment = "test"
-  label_order = ["environment", "name"]
+  name        = local.name
+  environment = local.environment
 
   # workflow name
   workflow_description = "Workflow-testing01"
@@ -56,8 +59,4 @@ module "workflow1" {
   decrypt_bucket_file_key      = "decrypted/file"
   decrypt_overwrite_existing   = "FALSE"
   decrypt_step_source_location = "$${original.file}"
-
-  s3_bucket_id = module.s3_bucket.id
-  user_name    = "test-user"
-  bucket_name  = "test-bucket"
 }
