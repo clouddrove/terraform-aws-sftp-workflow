@@ -40,4 +40,3 @@
 | tags | A mapping of tags to assign to the resource. |
 | workflow\_arn | The Workflow arn. |
 | workflow\_id | The Workflow id. |
-
