@@ -39,7 +39,7 @@ module "workflow" {
   tag_value                = "tag-value-1"
   tag_step_source_location = "$${original.file}"
 
-  # custom step  
+  # custom step
   enable_custom_step          = false
   custom_step_source_location = "$${original.file}"
   timeout_seconds             = 60
@@ -52,7 +52,7 @@ module "workflow" {
   copy_bucket_name          = "test-bucket"
   copy_bucket_file_key      = "destination_file.txt"
 
-  # decrypt step  
+  # decrypt step
   enable_decrypt_step          = false
   decrypt_step_name            = "decrypt-step-1"
   decrypt_bucket_name          = "test-bucket"
