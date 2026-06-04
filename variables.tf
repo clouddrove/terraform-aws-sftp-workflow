@@ -71,31 +71,31 @@ variable "decrypt_step_name" {
 
 variable "enable_tag_step" {
   type        = bool
-  default     = false
+  default     = true
   description = "Set to false to prevent the step from creating tag step resources."
 }
 
 variable "enable_delete_step" {
   type        = bool
-  default     = false
+  default     = true
   description = "Set to false to prevent the step from creating delete step resources."
 }
 
 variable "enable_custom_step" {
   type        = bool
-  default     = true
+  default     = false
   description = "Set to false to prevent the step from creating custom step resources."
 }
 
 variable "enable_copy_step" {
   type        = bool
-  default     = false
+  default     = true
   description = "Set to false to prevent the step from creating copy step resources."
 }
 
 variable "enable_decrypt_step" {
   type        = bool
-  default     = false
+  default     = true
   description = "Set to false to prevent the step from creating decrypt step resources."
 }
 
