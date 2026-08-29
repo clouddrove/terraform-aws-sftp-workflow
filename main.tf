@@ -55,9 +55,11 @@ resource "aws_transfer_workflow" "example" {
     for_each = var.enable_custom_step ? [1] : []
     content {
       custom_step_details {
-        name                 = "example"
+        # name                 = "example"
+        name                 = var.custom_step_name
         source_file_location = var.custom_step_source_location
         # target               = aws_lambda_function.example.arn
+        target               = var.custom_step_target
         timeout_seconds = var.timeout_seconds
       }
       type = "CUSTOM"

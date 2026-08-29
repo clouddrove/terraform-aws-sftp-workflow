@@ -40,7 +40,9 @@ module "workflow" {
   tag_step_source_location = "$${original.file}"
 
   # custom step
-  enable_custom_step          = false
+  enable_custom_step          = true
+  custom_step_name            = "custom-step-1"
+  custom_step_target          = "arn:aws:lambda:us-east-1:924144197303:function:noc-alert-email-importer"
   custom_step_source_location = "$${original.file}"
   timeout_seconds             = 60
 
